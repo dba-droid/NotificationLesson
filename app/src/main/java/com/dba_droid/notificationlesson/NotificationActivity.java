@@ -3,9 +3,11 @@ package com.dba_droid.notificationlesson;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -80,9 +82,13 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     public void sendNotification(String title, String body, String subText) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://developer.android.com/reference/android/app/Notification.html"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
         Notification.Builder builder = new Notification.Builder(getApplicationContext(), CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(body)
+                .setContentIntent(pendingIntent)
                 .setSubText(subText)
                 .setSmallIcon(R.drawable.android)
                 .setAutoCancel(true);
