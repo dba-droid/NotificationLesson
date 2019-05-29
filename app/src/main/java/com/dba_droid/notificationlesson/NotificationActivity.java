@@ -13,6 +13,11 @@ import android.widget.EditText;
 public class NotificationActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "default";
+
+    /* when sending a notification through the same identifier,
+     * the notification is redrawn,
+     * for create a new notification, use a different identifier !
+     */
     private static final int NOTIFICATION_ID = 1100;
 
     private NotificationManager notificationManager;
@@ -35,6 +40,20 @@ public class NotificationActivity extends AppCompatActivity {
                 sendNotification(title.getText().toString(), text.getText().toString(), subText.getText().toString());
             }
         });
+
+        findViewById(R.id.cancel_notification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificationManager.cancel(NOTIFICATION_ID);
+            }
+        });
+
+        findViewById(R.id.cancel_all_notifications).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificationManager.cancelAll();
+            }
+        });
     }
 
     private void createNotificationChannel() {
@@ -49,7 +68,7 @@ public class NotificationActivity extends AppCompatActivity {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSubText(subText)
-                .setSmallIcon(android.R.drawable.stat_notify_chat)
+                .setSmallIcon(R.drawable.android)
                 .setAutoCancel(true);
 
         notificationManager.notify(NOTIFICATION_ID, builder.build());

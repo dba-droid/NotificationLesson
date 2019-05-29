@@ -9,32 +9,50 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="notification title"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:hint="notification title" />
 
     <EditText
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:hint="notification text"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:hint="notification text" />
 
     <EditText
         android:id="@+id/sub_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/text"
-        android:hint="notification subtext"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:hint="notification subtext" />
 
     <Button
         android:id="@+id/send_notification"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sub_text"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:text="send notification"
-        android:layout_centerHorizontal="true"/>
+        android:text="send notification" />
+
+    <Button
+        android:id="@+id/cancel_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/send_notification"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="cancel notification" />
+
+    <Button
+        android:id="@+id/cancel_all_notifications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cancel_notification"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="cancel all notifications" />
 
 </RelativeLayout>
