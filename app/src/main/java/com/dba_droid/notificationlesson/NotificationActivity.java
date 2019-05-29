@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -110,6 +111,7 @@ public class NotificationActivity extends AppCompatActivity {
     private void deleteNotificationChannel(){
         notificationManager.deleteNotificationChannel(CHANNEL_ID);
     }
+
     private void deleteNotificationGroup(){
         notificationManager.deleteNotificationChannelGroup(GROUP_ID);
     }
@@ -118,9 +120,16 @@ public class NotificationActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://developer.android.com/reference/android/app/Notification.html"));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
+        Icon okIcon = Icon.createWithResource(this, android.R.drawable.sym_action_call);
+        Notification.Action okAction = new Notification.Action.Builder(okIcon, "OK", pendingIntent).build();
+
+        Icon icon = Icon.createWithResource(this, android.R.drawable.sym_action_chat);
+        Notification.Action cancelAction = new Notification.Action.Builder(icon, "Cancel", pendingIntent).build();
+
         Notification.Builder builder = new Notification.Builder(getApplicationContext(), CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(body)
+                .setActions(okAction, cancelAction)
                 .setContentIntent(pendingIntent)
                 .setSubText(subText)
                 .setColor(Color.RED) // ICON COLOR
