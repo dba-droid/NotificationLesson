@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.concurrent.TimeUnit;
+
 public class NotificationActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "default";
@@ -100,6 +102,40 @@ public class NotificationActivity extends AppCompatActivity {
                 .setAutoCancel(true);
 
         notificationManager.notify(NOTIFICATION_ID, builder.build());
+
+        startUpdateNotificationProgressTask(builder);
+    }
+
+
+    private void startUpdateNotificationProgressTask(final Notification.Builder builder) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                int maxProgress = 100;
+                for (int progress = 0; progress <= maxProgress; progress += 10) {
+
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    // show notification with current progress
+                    builder.setProgress(100, progress, false).setContentText(progress + " of " + maxProgress);
+                    notificationManager.notify(NOTIFICATION_ID, builder.build());
+                }
+
+                // show notification without progressbar
+                builder.setProgress(0, 10, false).setContentText("Completed");
+                notificationManager.notify(NOTIFICATION_ID, builder.build());
+            }
+        }).start();
     }
 
     //  Send Intent to load system Notification Settings for this app.
