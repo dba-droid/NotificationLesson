@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -94,7 +95,25 @@ public class NotificationActivity extends AppCompatActivity {
         });
     }
 
-    private void createNotificationGroup(){
+    //for verions < OREO
+    private void sendNotification() {
+        NotificationCompat.Builder notificationBuilder
+                = new NotificationCompat.Builder(this, CHANNEL_ID);
+
+        notificationBuilder.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.android)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setContentTitle("Default notification")
+                .setContentText("Lorem ipsum")
+                .setContentInfo("Info")
+                .setAutoCancel(true);
+
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+    }
+
+    private void createNotificationGroup() {
         notificationManager.createNotificationChannelGroup(new NotificationChannelGroup(GROUP_ID, "Group 1"));
     }
 
@@ -108,11 +127,11 @@ public class NotificationActivity extends AppCompatActivity {
         notificationManager.createNotificationChannel(channel);
     }
 
-    private void deleteNotificationChannel(){
+    private void deleteNotificationChannel() {
         notificationManager.deleteNotificationChannel(CHANNEL_ID);
     }
 
-    private void deleteNotificationGroup(){
+    private void deleteNotificationGroup() {
         notificationManager.deleteNotificationChannelGroup(GROUP_ID);
     }
 
