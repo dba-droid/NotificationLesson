@@ -73,4 +73,22 @@
         android:layout_marginTop="20dp"
         android:text="open channel notification settings" />
 
+    <Button
+        android:id="@+id/delete_channel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/go_to_channel_notification_settings"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="delete channel" />
+
+    <Button
+        android:id="@+id/delete_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/delete_channel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="delete group" />
+
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.dba_droid.notificationlesson;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -18,7 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public class NotificationActivity extends AppCompatActivity {
 
-    private static final String CHANNEL_ID = "default";
+    private static final String GROUP_ID = "GROUP_ID";
+    private static final String CHANNEL_ID = "CHANNEL_ID";
 
     /* when sending a notification through the same identifier,
      * the notification is redrawn,
@@ -34,6 +36,7 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        createNotificationGroup();
         createNotificationChannel();
 
         final EditText title = findViewById(R.id.title);
@@ -74,13 +77,41 @@ public class NotificationActivity extends AppCompatActivity {
                 goToNotificationSettings(CHANNEL_ID);
             }
         });
+
+        findViewById(R.id.delete_channel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteNotificationChannel();
+            }
+        });
+
+        findViewById(R.id.delete_group).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteNotificationGroup();
+            }
+        });
+    }
+
+    private void createNotificationGroup(){
+        notificationManager.createNotificationChannelGroup(new NotificationChannelGroup(GROUP_ID, "Group 1"));
     }
 
     private void createNotificationChannel() {
-        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "CHANNEL_NAME", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "CHANNEL_NAME", NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("channel description");
+        channel.setGroup(GROUP_ID);
+        channel.enableLights(true);
         channel.setLightColor(Color.GREEN);
         channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
         notificationManager.createNotificationChannel(channel);
+    }
+
+    private void deleteNotificationChannel(){
+        notificationManager.deleteNotificationChannel(CHANNEL_ID);
+    }
+    private void deleteNotificationGroup(){
+        notificationManager.deleteNotificationChannelGroup(GROUP_ID);
     }
 
     public void sendNotification(String title, String body, String subText) {
