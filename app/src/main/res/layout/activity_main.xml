@@ -55,4 +55,22 @@
         android:layout_marginTop="20dp"
         android:text="cancel all notifications" />
 
+    <Button
+        android:id="@+id/go_to_notification_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cancel_all_notifications"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="open notification settings" />
+
+    <Button
+        android:id="@+id/go_to_channel_notification_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/go_to_notification_settings"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="open channel notification settings" />
+
 </RelativeLayout>

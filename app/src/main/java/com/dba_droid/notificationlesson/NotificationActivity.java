@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -54,6 +56,20 @@ public class NotificationActivity extends AppCompatActivity {
                 notificationManager.cancelAll();
             }
         });
+
+        findViewById(R.id.go_to_notification_settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNotificationSettings();
+            }
+        });
+
+        findViewById(R.id.go_to_channel_notification_settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToNotificationSettings(CHANNEL_ID);
+            }
+        });
     }
 
     private void createNotificationChannel() {
@@ -72,5 +88,20 @@ public class NotificationActivity extends AppCompatActivity {
                 .setAutoCancel(true);
 
         notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    //  Send Intent to load system Notification Settings for this app.
+    public void goToNotificationSettings() {
+        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+        startActivity(intent);
+    }
+
+    //  Send Intent to load system Notification Settings for this channel.
+    public void goToNotificationSettings(String channelId) {
+        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
+        startActivity(intent);
     }
 }
