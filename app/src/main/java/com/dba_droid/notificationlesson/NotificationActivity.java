@@ -90,7 +90,13 @@ public class NotificationActivity extends AppCompatActivity {
                 .setContentText(body)
                 .setContentIntent(pendingIntent)
                 .setSubText(subText)
+                .setColor(Color.RED) // ICON COLOR
+                .setShowWhen(true) // SHOW NOTIFICATION TIME
+                .setWhen(System.currentTimeMillis() - 100100) // NOTIFICATION TIME, DEFAULT = System.currentTimeMillis()
+                .setUsesChronometer(true)  //CHANGE TIME MODE TO CHRONOMETER
                 .setSmallIcon(R.drawable.android)
+                .setTimeoutAfter(10000 /*10 sec*/) //AFTER THAT TIME NOTIFICATION AUTOMATICALLY CLOSED
+                .setProgress(100, 0, true)
                 .setAutoCancel(true);
 
         notificationManager.notify(NOTIFICATION_ID, builder.build());
